@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>MotoGP history: 1949 to today</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@700;900&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#E7E5E0; --surface:#F4F2EE; --ink:#1C1D20; --muted:#5A5C61; --red:#D3202A; --white:#fff; --line:#bdbab3; --flag:#F2C230;
+  --display:'Big Shoulders Display','Arial Narrow',Impact,sans-serif; --body:'IBM Plex Sans',system-ui,sans-serif;
+  box-sizing:border-box; padding-top:env(safe-area-inset-top,0px); padding-bottom:env(safe-area-inset-bottom,0px);
+  color-scheme:light;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#1A1B1E; --surface:#25272B; --ink:#ECEAE4; --muted:#A3A5AA; --line:#45474c; color-scheme:dark;}}
+:root[data-theme="dark"]{--bg:#1A1B1E; --surface:#25272B; --ink:#ECEAE4; --muted:#A3A5AA; --line:#45474c; color-scheme:dark;}
+*,*::before,*::after{box-sizing:inherit}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;background:var(--bg);color:var(--ink);font:400 1.0625rem/1.6 var(--body)}
+.wrap{max-width:62rem;margin:0 auto;padding:0 1.25rem}
+.kerb{height:.9rem;background:repeating-linear-gradient(90deg,var(--red) 0 1.5rem,var(--white) 1.5rem 3rem)}
+.hero .kerb{transform-origin:left;animation:sweep 1.1s cubic-bezier(.2,.8,.2,1) both}
+@keyframes sweep{from{transform:scaleX(0)}to{transform:scaleX(1)}}
+.hero{padding:3.5rem 0 0}
+.hero h1{font:900 clamp(4.2rem,16vw,11rem)/.85 var(--display);margin:0 0 1.5rem;letter-spacing:-.01em}
+.hero h1 span{display:block;color:var(--red)}
+.hero p{max-width:38rem;margin:0 0 2.5rem;font-size:1.2rem;color:var(--muted)}
+h2{font:900 clamp(2.2rem,6vw,3.4rem)/1 var(--display);margin:0 0 1rem}
+section{padding:3.5rem 0}
+.era-nav{display:flex;gap:.5rem;overflow-x:auto;padding:.25rem 0 1rem;margin:0 0 1.5rem;scrollbar-width:thin}
+.era-nav button{flex:0 0 auto;font:700 1.5rem/1 var(--display);padding:.7rem 1rem;border:2px solid var(--ink);background:transparent;color:var(--ink);cursor:pointer;border-radius:.25rem;transition:background .15s,color .15s}
+.era-nav button:hover{background:var(--surface)}
+.era-nav button[aria-selected="true"]{background:var(--red);border-color:var(--red);color:#fff}
+:focus-visible{outline:3px solid var(--flag);outline-offset:2px}
+.panel{background:var(--surface);border-left:.6rem solid var(--red);padding:1.75rem}
+.panel h3{font:900 clamp(1.8rem,5vw,2.6rem)/1.05 var(--display);margin:0 0 .75rem}
+.panel .lede{margin:0 0 1.5rem;max-width:42rem}
+.cols{display:grid;grid-template-columns:repeat(auto-fit,minmax(15rem,1fr));gap:1.5rem}
+.cols h4{font:700 1.25rem/1.2 var(--display);margin:0 0 .4rem;color:var(--red)}
+.cols ul{margin:0;padding-left:1.1rem}
+.cols li{margin:0 0 .4rem}
+.bars{list-style:none;margin:0;padding:0;display:grid;gap:.6rem}
+.bars li{display:grid;grid-template-columns:9rem 1fr 2rem;align-items:center;gap:.75rem}
+.bars .track{height:1.6rem;background:var(--surface)}
+.bars .fill{height:100%;background:var(--ink);width:0;transition:width 1s cubic-bezier(.2,.8,.2,1)}
+.bars li:first-child .fill{background:var(--red)}
+.bars b{font:700 1.4rem/1 var(--display);text-align:right}
+.note{color:var(--muted);font-size:.95rem;max-width:42rem}
+.records{display:grid;grid-template-columns:repeat(auto-fit,minmax(13rem,1fr));gap:1.25rem;margin-top:1.5rem}
+.records div{border-top:.35rem solid var(--ink);padding-top:.6rem}
+.records strong{display:block;font:900 3rem/1 var(--display)}
+footer{padding:2rem 0 3rem;color:var(--muted);font-size:.95rem}
+@media (max-width:34rem){.bars li{grid-template-columns:6.5rem 1fr 1.5rem}.panel{padding:1.25rem}}
+@media (prefers-reduced-motion:reduce){.hero .kerb{animation:none}.bars .fill{transition:none}}
+</style>
+</head>
+<body>
+<header class="hero">
+  <div class="kerb" aria-hidden="true"></div>
+  <div class="wrap" style="padding-top:2.5rem">
+    <h1>MotoGP<span>since 1949</span></h1>
+    <p>From the Isle of Man to the modern Sprint weekend, this is how motorcycle racing’s world championship changed, and who defined each era.</p>
+  </div>
+</header>
+
+<main class="wrap">
+  <section aria-labelledby="eras">
+    <h2 id="eras">Seven eras</h2>
+    <p class="note" style="margin-top:0">Choose a period to see its riders, machines and turning points.</p>
+    <div class="era-nav" role="tablist" aria-label="Eras of the championship" id="nav"></div>
+    <div class="panel" id="panel" role="tabpanel" aria-live="polite"></div>
+  </section>
+
+  <section aria-labelledby="champs">
+    <h2 id="champs">Most premier-class titles</h2>
+    <p class="note" style="margin-top:0">Titles in the top class only: 500cc until 2001, MotoGP from 2002.</p>
+    <ul class="bars" id="bars"></ul>
+    <p class="note" style="margin-top:1rem">Surtees, Hailwood, Duke and Lawson each won four. Counts run through the 2025 season.</p>
+  </section>
+
+  <section aria-labelledby="rec">
+    <h2 id="rec">Records worth knowing</h2>
+    <div class="records">
+      <div><strong>15</strong>World titles for Giacomo Agostini, the most of any rider across all classes.</div>
+      <div><strong>9</strong>World titles for Valentino Rossi, seven of them in the premier class.</div>
+      <div><strong>5</strong>Straight premier-class titles for Mick Doohan, from 1994 to 1998.</div>
+      <div><strong>2013</strong>Marc Márquez wins the title in his first premier-class season.</div>
+    </div>
+  </section>
+</main>
+<div class="kerb" aria-hidden="true"></div>
+<footer class="wrap">Figures are drawn from the official championship record and summarised here; check motogp.com for full results.</footer>
+
+<script>
+var eras=[
+{y:"1949–59",t:"The championship begins",l:"The FIM Road Racing World Championship starts in 1949 with the Isle of Man TT as its opening round. Leslie Graham takes the first 500cc title on an AJS.",
+ r:["Geoff Duke wins four 500cc titles, the last three on Gilera","John Surtees dominates for MV Agusta","Italian factories Gilera and MV Agusta set the pace"],
+ m:["Single-cylinder Norton and AJS give way to Italian multi-cylinder fours","Honda makes its first Isle of Man TT appearance in 1959"],
+ c:["Road circuits and street courses make up most of the calendar","Gilera withdraws from racing after 1957"]},
+{y:"1960–69",t:"Japan arrives",l:"Honda, Suzuki and Yamaha reshape the smaller classes while MV Agusta keeps hold of the 500cc crown. The rivalry between Mike Hailwood and Giacomo Agostini defines the decade’s end.",
+ r:["Mike Hailwood takes four straight 500cc titles from 1962 to 1965","Giacomo Agostini wins his first 500cc title in 1966","Jim Redman wins six titles in the smaller classes for Honda"],
+ m:["Honda’s multi-cylinder engines rev far beyond European rivals","MV Agusta’s three-cylinder 500 stays the benchmark"],
+ c:["Japanese factories withdraw and return as budgets and rules shift","Fatal crashes keep raising questions about road circuits"]},
+{y:"1970–79",t:"Two-strokes and safety",l:"Two-stroke engines overtake four-strokes at the top. Riders push back on dangerous venues, and the Isle of Man TT leaves the championship after 1976.",
+ r:["Agostini wins the 1975 title on a Yamaha, the first for a two-stroke in the 500 class","Barry Sheene wins in 1976 and 1977 for Suzuki","Kenny Roberts becomes the first American champion in 1978"],
+ m:["Yamaha’s YZR500 and Suzuki’s RG500 replace the old fours","Slick tyres and wider rims change cornering"],
+ c:["Jarno Saarinen’s death at Monza in 1973 hardens the safety push","Dirt-track style riding arrives with Roberts"]},
+{y:"1980–89",t:"Americans and Australians",l:"The 500cc grid becomes a transatlantic fight. Honda returns to the top class with the NSR and wins races that Yamaha once owned.",
+ r:["Freddie Spencer wins the 1983 title on the Honda NS500 at 21","Eddie Lawson wins four titles with Yamaha and then Honda","Wayne Gardner becomes the first Australian champion in 1987"],
+ m:["Honda’s NSR500 V4 takes shape","Aluminium chassis replace steel tubes"],
+ c:["Spencer wins both the 250cc and 500cc titles in 1985","Sponsor money brings a wider international audience"]},
+{y:"1990–2001",t:"The Doohan years",l:"Wayne Rainey’s three straight titles and Kevin Schwantz’s fierce racing give way to Mick Doohan’s total control of the mid-1990s. Dorna takes over commercial rights in 1992.",
+ r:["Wayne Rainey wins from 1990 to 1992","Mick Doohan wins five in a row from 1994 to 1998","Valentino Rossi wins the final 500cc title in 2001"],
+ m:["Big-bang firing order makes the Honda NSR500 easier to ride","Carbon brakes and electronics start to appear"],
+ c:["Rainey’s crash at Misano in 1993 ends his career","Àlex Crivillé becomes Spain’s first premier-class champion in 1999"]},
+{y:"2002–12",t:"MotoGP is born",l:"The 500cc class gives way to four-stroke machines under the MotoGP name. Rossi dominates the first half, then Casey Stoner, Jorge Lorenzo and others take over.",
+ r:["Valentino Rossi wins 2002 to 2005, then 2008 and 2009","Casey Stoner takes Ducati’s first title in 2007","Jorge Lorenzo wins in 2010 and 2012"],
+ m:["990cc engines from 2002, 800cc from 2007, 1000cc again from 2012","Bridgestone becomes the sole tyre supplier in 2009"],
+ c:["Nicky Hayden wins the 2006 title for Honda","Electronics turn traction control into a rider skill"]},
+{y:"2013–25",t:"Wings, data and a Ducati era",l:"Marc Márquez sets a new standard from his first season. Aerodynamics and ride-height devices arrive, and Ducati builds the fastest bike on the grid.",
+ r:["Márquez wins in 2013, 2014 and 2016 to 2019, then again in 2025","Joan Mir (2020), Fabio Quartararo (2021) and Francesco Bagnaia (2022, 2023) follow","Jorge Martín wins in 2024 with the Pramac Ducati team"],
+ m:["Michelin returns as sole tyre supplier in 2016","Winglets, ride-height devices and a common electronic control unit"],
+ c:["Sprint races are added to every weekend in 2023","Bagnaia gives Ducati its first title since 2007 in 2022"]}
+];
+var champs=[["Agostini",8],["Rossi",7],["Márquez",7],["Doohan",5],["Surtees",4],["Hailwood",4],["Duke",4],["Lawson",4]];
+var nav=document.getElementById('nav'),panel=document.getElementById('panel');
+function list(a){return '<ul>'+a.map(function(s){return '<li>'+s+'</li>'}).join('')+'</ul>'}
+function show(i){
+  var e=eras[i];
+  [].forEach.call(nav.children,function(b,j){b.setAttribute('aria-selected',j===i);b.tabIndex=j===i?0:-1});
+  panel.innerHTML='<h3>'+e.y+': '+e.t+'</h3><p class="lede">'+e.l+'</p><div class="cols"><div><h4>Defining riders</h4>'+list(e.r)+'</div><div><h4>Machines and tech</h4>'+list(e.m)+'</div><div><h4>Turning points</h4>'+list(e.c)+'</div></div>';
+}
+eras.forEach(function(e,i){
+  var b=document.createElement('button');
+  b.type='button';b.setAttribute('role','tab');b.textContent=e.y;
+  b.onclick=function(){show(i)};
+  b.onkeydown=function(ev){
+    var n=ev.key==='ArrowRight'?i+1:ev.key==='ArrowLeft'?i-1:null;
+    if(n!==null&&n>=0&&n<eras.length){show(n);nav.children[n].focus()}
+  };
+  nav.appendChild(b);
+});
+show(0);
+var bars=document.getElementById('bars');
+champs.forEach(function(c){
+  var li=document.createElement('li');
+  li.innerHTML='<span>'+c[0]+'</span><span class="track"><span class="fill" data-w="'+(c[1]/8*100)+'" style="display:block"></span></span><b>'+c[1]+'</b>';
+  bars.appendChild(li);
+});
+function grow(){[].forEach.call(document.querySelectorAll('.fill'),function(f){f.style.width=f.dataset.w+'%'})}
+if('IntersectionObserver' in window){
+  new IntersectionObserver(function(en,o){if(en[0].isIntersecting){grow();o.disconnect()}}).observe(bars);
+}else{grow()}
+</script>
+</body>
+</html>
